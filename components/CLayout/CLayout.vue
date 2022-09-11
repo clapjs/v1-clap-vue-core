@@ -82,7 +82,7 @@ export default {
         },
         async loadApplicationMenus(application) {
             this.app = await this.$clap.model('cdp_application').getByID(application).then(res => res.records[0]);
-            const menusArray = (await this.$clap.http.get('/core/authority/menu', {params: {application: application}})).data.records.map(item => {
+            const menusArray = (await this.$clap.http.get('/clap/authority/menu', {params: {application: application}})).data.records.map(item => {
                 item.title = item.name;
                 item.key = item._id;
                 return item
@@ -90,17 +90,18 @@ export default {
             this.menus = this.$clap.helper.listToTree(menusArray, 0)
         },
         async menuSelect(menu) {
+          console.log(menu)
             const activeMenu = this.$clap.helper.getTreeNode(this.menus, menu.key);
             activeMenu.keyPath = menu.keyPath;
-            await this.$clap.http.get('/core/authority/button', {params: {menu: menu.key}}).then(el => {
+            await this.$clap.http.get('/clap/authority/button', {params: {menu: menu.key}}).then(el => {
                 activeMenu.buttons = el.data.record.buttons
                 activeMenu.organButtons = el.data.record.organButtons
                 activeMenu.isOrganAuth = el.data.record.isOrganAuth
             });
-            await this.$clap.http.get('/core/authority/security', {params: {menu: menu.key}}).then(el => {
+            await this.$clap.http.get('/clap/authority/security', {params: {menu: menu.key}}).then(el => {
                 activeMenu.organSecurity = el.data.record
             });
-            activeMenu.organs = this.$clap.helper.listToTree((await this.$clap.http.get('/core/authority/organ', {params: {menu: menu.key}})).data.records.map(item => {
+            activeMenu.organs = this.$clap.helper.listToTree((await this.$clap.http.get('/clap/authority/organ', {params: {menu: menu.key}})).data.records.map(item => {
                 item.title = item.organName;
                 item.key = item._id;
                 item.value = item._id;

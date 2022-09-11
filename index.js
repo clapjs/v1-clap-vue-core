@@ -58,6 +58,7 @@ import {
 
 import VueLs from 'vue-ls';
 import VueCookies from 'vue-cookies'
+import moment from 'moment'
 import clap from './lib/clap'
 import clap_file from "./lib/clap_file";
 import clap_helper from "./lib/clap_helper";
@@ -133,6 +134,7 @@ const install = function (Vue, options) {
     if(options.platform==='electron'){import('electron').then((electron)=>{ Vue.prototype.$electron = electron})}
     Vue.prototype.$clap = new clap(options.axios);
     Vue.prototype.$clap.http=options.axios;
+    Vue.prototype.$clap.moment=moment;
     Vue.prototype.$clap.file=new clap_file(options.axios);
     Vue.prototype.$clap.helper=clap_helper;
     components.map(component => {

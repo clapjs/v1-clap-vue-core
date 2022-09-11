@@ -79,7 +79,6 @@ export default {
     },
     watch: {
         'menu.key'(key) {
-            console.log('menu.key',key,this.getTabIndex(key))
             if (this.getTabIndex(key) < 0) {
                 if (!this.menu.idOrgan && this.menu.organs && this.menu.organs.length) {
                     this.ToggleMenu({...this.menu, idOrgan: getSelectable(this.menu.organs)._id})
