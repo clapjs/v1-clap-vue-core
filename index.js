@@ -65,8 +65,7 @@ import clap_helper from "./lib/clap_helper";
 
 const components = []
 
-const install = function (Vue, options) {
-    options.platform=options.platform?options.platform:'web'
+const install = function (Vue, Config) {
     if (install.installed) return
     install.installed = true;
     Vue.use(ConfigProvider);
@@ -127,15 +126,14 @@ const install = function (Vue, options) {
     Vue.prototype.$error = Modal.error;
     Vue.prototype.$warning = Modal.warning;
     Vue.prototype.$notification = notification;
-
-    Vue.prototype.$global = {platform:options.platform};
     Vue.use(VueLs, {namespace: 'CLEAR_', name: 'ls', storage: 'local'});
-    if(options.platform==='web'){Vue.use(VueCookies)}
-    if(options.platform==='electron'){import('electron').then((electron)=>{ Vue.prototype.$electron = electron})}
-    Vue.prototype.$clap = new clap(options.axios);
-    Vue.prototype.$clap.http=options.axios;
+    Vue.use(VueCookies);
+    if(process.env.IS_ELECTRON){import('electron').then((electron)=>{ Vue.prototype.$electron = electron})}
+    Vue.prototype.$clap = new clap(Config.axios);
+    Vue.prototype.$clap.config=Config;
+    Vue.prototype.$clap.http=Config.axios;
     Vue.prototype.$clap.moment=moment;
-    Vue.prototype.$clap.file=new clap_file(options.axios);
+    Vue.prototype.$clap.file=new clap_file(Config.axios);
     Vue.prototype.$clap.helper=clap_helper;
     components.map(component => {
         Vue.component(component.name, component)

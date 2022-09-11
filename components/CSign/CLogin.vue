@@ -18,7 +18,7 @@
             </a-form-model-item>
             <a-form-model-item>
                 <a-button type="primary" @click="doLogin" block>立即登录</a-button>
-                <a-button v-if="isElectron" type="danger" @click="isElectron.remote.app.quit()" block>退出系统</a-button>
+                <a-button v-if="IS_ELECTRON" type="danger" @click="$electron.remote.app.quit()" block>退出系统</a-button>
             </a-form-model-item>
             <div class="user-login-other" v-if="!isElectron">
                 <a><a-icon class="item-icon" type="windows"></a-icon></a>
@@ -49,9 +49,9 @@ export default {
         this.form.userCode = this.form.remember?this.$ls.get('USER_CODE'):'';
     },
     computed: {
-        isElectron() {
-            return !!this.$electron
-        },
+        IS_ELECTRON() {
+            return process.env.IS_ELECTRON
+        }
     },
     methods:{
         changeRemember(e) {

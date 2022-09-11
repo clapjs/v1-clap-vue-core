@@ -15,6 +15,8 @@
                     <c-user></c-user>
                     <c-language style="margin-left: 12px"></c-language>
                     <c-theme style="margin-left: 12px"></c-theme>
+                    <c-minimize style="margin-left: 12px"></c-minimize>
+                    <c-exit style="margin-left: 12px"></c-exit>
                 </div>
             </a-layout-header>
             <a-layout>
@@ -43,13 +45,15 @@
 import CMenu from "./components/CMenu"
 import CMultiTab from "./components/CMultiTab";
 import CUser from "./components/CUser";
-import CTheme from "./components/CTheme";
 import CLanguage from "./components/CLanguage";
+import CTheme from "./components/CTheme";
+import CMinimize from "./components/CMinimize"
+import CExit from "./components/CExit"
 import {mapGetters, mapActions} from 'vuex'
 
 export default {
     name: "basic",
-    components: {CMultiTab, CMenu,CUser,CTheme,CLanguage},
+    components: {CMenu,CMultiTab,CUser,CLanguage,CTheme,CMinimize,CExit},
     data() {
         return {
             innerHeight: window.innerHeight - 128 + 'px',
