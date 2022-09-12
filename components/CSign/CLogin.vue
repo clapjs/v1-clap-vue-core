@@ -17,10 +17,10 @@
                 <a style="float: right" @click="doResetPwd">忘记密码？</a>
             </a-form-model-item>
             <a-form-model-item>
-                <a-button type="primary" @click="doLogin" block>立即登录</a-button>
-                <a-button v-if="IS_ELECTRON" type="danger" @click="$electron.remote.app.quit()" block>退出系统</a-button>
+                <a-button icon="login" type="primary" @click="doLogin" block>立即登录</a-button>
+                <a-button icon="close" v-if="IS_ELECTRON" type="danger" @click="$electron.remote.app.quit()" block>退出系统</a-button>
             </a-form-model-item>
-            <div class="user-login-other" v-if="!isElectron">
+            <div class="user-login-other" v-if="!IS_ELECTRON">
                 <a><a-icon class="item-icon" type="windows"></a-icon></a>
                 <a><a-icon class="item-icon" type="apple"></a-icon></a>
             </div>
