@@ -55,9 +55,10 @@ import {
     Result,
 
 } from 'ant-design-vue'
-
+import AModal from "./antd/Modal/Modal";
 import VueLs from 'vue-ls';
 import VueCookies from 'vue-cookies'
+import VueClipboard from 'vue-clipboard2'
 import moment from 'moment'
 import clap from './lib/clap'
 import clap_file from "./lib/clap_file";
@@ -82,7 +83,7 @@ const install = function (Vue, Config) {
     Vue.use(FormModel);
     Vue.use(Row);
     Vue.use(Col);
-    Vue.use(Modal);
+    //Vue.use(Modal);
     Vue.use(Table);
     Vue.use(Tabs);
     Vue.use(Icon);
@@ -119,6 +120,7 @@ const install = function (Vue, Config) {
     Vue.use(Calendar);
     Vue.use(PageHeader);
     Vue.use(Result);
+    Vue.component('a-modal',AModal);
     Vue.prototype.$message = message;
     Vue.prototype.$confirm = Modal.confirm;
     Vue.prototype.$info = Modal.info;
@@ -128,6 +130,7 @@ const install = function (Vue, Config) {
     Vue.prototype.$notification = notification;
     Vue.use(VueLs, {namespace: 'CLEAR_', name: 'ls', storage: 'local'});
     Vue.use(VueCookies);
+    Vue.use(VueClipboard)
     if(process.env.IS_ELECTRON){import('electron').then((electron)=>{ Vue.prototype.$electron = electron})}
     Vue.prototype.$clap = new clap(Config.axios);
     Vue.prototype.$clap.config=Config;
