@@ -1,9 +1,9 @@
 <template>
     <a-dropdown placement="bottomRight">
         <span class="avatar">
-            <a-avatar size="small" class="pre-avatar" :src="user.avatar" v-if="user.avatar">{{user.userName.slice(0,1)}}</a-avatar>
-            <a-avatar size="small" class="pre-avatar" :style="{backgroundColor:user.avatarColor?user.avatarColor:'#1890ff'}" v-else>{{user.userName.slice(0,1)}}</a-avatar>
-          <span>{{user.userName}}</span>
+            <a-avatar size="small" class="pre-avatar" :src="user.avatar" v-if="user&&user.avatar">{{user.userName.slice(0,1)}}</a-avatar>
+            <a-avatar size="small" class="pre-avatar" :style="{backgroundColor:user&&user.avatarColor?user.avatarColor:'#1890ff'}" v-else>{{user?user.userName.slice(0,1):''}}</a-avatar>
+            <span>{{user.userName}}</span>
         </span>
         <template v-slot:overlay>
             <a-menu class="ant-pro-drop-down menu" :selected-keys="[]">
@@ -30,12 +30,6 @@ import {mapGetters,mapActions} from "vuex";
 
 export default {
     name: 'CUser',
-    props: {
-        currentUser: {
-            type: Object,
-            default: () => null
-        }
-    },
     computed:{
         ...mapGetters(['user']),
     },

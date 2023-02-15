@@ -47,6 +47,9 @@
             selectedKeys: {
                 type: [String, Array],
                 required: false,
+                default(){
+                    return []
+                }
             },
             openKeys: {
                 type: [String, Array],

@@ -1,2 +1,2 @@
-import CMultiTab from './CMultiTab'
-export default CMultiTab
+import MultiTab from './CMultiTab'
+export default MultiTab

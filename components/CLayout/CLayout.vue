@@ -1,7 +1,7 @@
 <template>
     <a-layout id="basic-layout">
         <a-layout-sider collapsed :trigger="null" v-if="layout==='left'">
-            <img src="../../assets/logo_mini.png" height="64" width="80"/>
+            <img :src="$clap.config.host+'/assets/logo/logo_mini.png'" height="64" width="80"/>
             <c-menu theme="dark" mode="inline" :menus="applications" inlineCollapsed @menuSelect="({key})=>applicationSelect(key)" :selectedKeys="[application]" :openKeys="[application]" icon-park></c-menu>
         </a-layout-sider>
         <a-layout-header style="background: #fff; padding: 0;" v-else>
@@ -52,7 +52,7 @@ import CExit from "./components/CExit"
 import {mapGetters, mapActions} from 'vuex'
 
 export default {
-    name: "basic",
+    name: "CLayout",
     components: {CMenu,CMultiTab,CUser,CLanguage,CTheme,CMinimize,CExit},
     data() {
         return {
@@ -66,7 +66,7 @@ export default {
         window.onresize = function () {
             this.innerHeight = window.innerHeight - 128 + 'px';
         }
-        this.applicationSelect(this.application)
+        this.applicationSelect(this.application);
     },
     computed: {
         ...mapGetters(["layout", "applications", 'application', "menu", "multiTab"]),
@@ -94,7 +94,6 @@ export default {
             this.menus = this.$clap.helper.listToTree(menusArray, 0)
         },
         async menuSelect(menu) {
-          console.log(menu)
             const activeMenu = this.$clap.helper.getTreeNode(this.menus, menu.key);
             activeMenu.keyPath = menu.keyPath;
             await this.$clap.http.get('/clap/authority/button', {params: {menu: menu.key}}).then(el => {
@@ -134,5 +133,3 @@ export default {
     color: #1890ff;
 }
 </style>
-
-
